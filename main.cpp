@@ -29,6 +29,7 @@ int main()
 		
 	}
 
+	endwin();
 
 	return 0;
 }
