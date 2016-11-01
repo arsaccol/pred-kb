@@ -1,5 +1,5 @@
 #ifndef TRIE_H
-#define TRiE_H
+#define TRIE_H
 #include <cstdint>
 #include <map>
 #include <string>
