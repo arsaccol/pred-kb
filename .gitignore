@@ -1,3 +1,5 @@
 *.program
 *.o
+*.swp
+*.swo
 
