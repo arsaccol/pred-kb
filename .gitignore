@@ -7,3 +7,4 @@
 *.includes
 *.config
 *.files
+*.user

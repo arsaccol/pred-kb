@@ -12,7 +12,7 @@ int main()
 	using std::cout; using std::endl;
 	std::string str;
 	std::stringstream string_buffer;
-	Trie::Node dictionary(0);
+	Trie::Trie trieDict;
 
 	__fpurge(stdin);
 	initscr();
@@ -23,7 +23,7 @@ int main()
 	//timeout(0);
 
 	cbreak();
-	char key = ' ';
+	char key = 'a';
 
 	while(1)
 	{
@@ -34,20 +34,21 @@ int main()
 		{
 			break;
 		}
-		if(key == ' ')
-		{
-			//string_buffer << str;
-			dictionary.insertWord(str);
-			str.clear();
-		}
 		if(key == '\n')
 		{
-			key = ' ';
+			//key = ' ';
+		}
+		if(key == ' ')
+		{
+			str.clear();
+			continue;
 		}
 		str.push_back(key);
 		// This is wrong, 
 		// should insert from stringstream instead
-		dictionary.insertWord(str);
+
+
+		trieDict.insertWord(str);
 
 
 		//clear();
@@ -61,8 +62,11 @@ int main()
 
 	endwin();
 
-	dictionary.printAllWords();
+	//dictionary.printAllWords();
 	cout << "Stream is: " << string_buffer.str() << endl;
+
+	for(auto& entry : (trieDict.mLetterToPos))
+		std::cout << entry.first << " " << entry.second << std::endl;
 
 	return 0;
 }

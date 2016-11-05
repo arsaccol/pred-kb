@@ -2,6 +2,7 @@
 #define TRIE_H
 #include <cstdint>
 #include <map>
+#include <vector>
 #include <string>
 #include <memory>
 
@@ -10,25 +11,22 @@
 
 namespace Trie
 {
-	void integerToLetter(uint8_t);
-
 
 	class Node
 	{
 		public:
-			Node(char data)
-				:	mData(data)
-				,	mEndOfWord(false)
-			{}
+			friend class Trie;
+			Node(char data);
 
-			void insertWord(std::string& word);
 			char getData() const;
-			void printAllWords() const;
+			//void printAllWords() const;
 
 		private:
 			char mData;
 			bool mEndOfWord;
-			std::map< char, std::unique_ptr<Node> > mChildren;
+			// TODO: Change constructor to start vector with 26 nullptr's
+			std::vector< std::unique_ptr<Node> > mChildren{26};
+
 
 			//std::list<Node*> children;
 	};
@@ -37,14 +35,11 @@ namespace Trie
 	class Trie
 	{
 		public:
-			Trie()
-				:	mRoot(new Node(0))
-				,	mWordCount(0)
-				,	mNodeCount(1)
-			{}
+			Trie();
 
 			void insertWord(std::string& word);
-			Node* findWord(std::string& word);
+			Node& findWord(std::string& word);
+			std::map<char, size_t> mLetterToPos;
 
 
 		private:
