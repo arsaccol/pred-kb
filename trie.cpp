@@ -5,6 +5,11 @@
 
 namespace Trie
 {
+/*
+================
+Trie::Trie
+================
+*/
 	Trie::Trie()
 		:	mWordCount(0)
 		,	mNodeCount(0)
@@ -20,6 +25,11 @@ namespace Trie
 		}
 	}
 
+/*
+================
+Node::Node
+================
+*/
 	Node::Node(char data)
 		:	mData(data)
 		,	mEndOfWord(false)
@@ -27,6 +37,12 @@ namespace Trie
 
 	}
 
+
+/*
+================
+Trie::insertWord
+================
+*/
 	void Trie::insertWord(std::string& word)
 	{
 		// That's right, a pointer to unique_ptr<Node>
@@ -73,6 +89,11 @@ namespace Trie
 
 
 
+/*
+================
+Node::getData
+================
+*/
 	char Node::getData() const
 	{	return mData;	}
 
