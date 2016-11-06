@@ -40,6 +40,7 @@ int main()
 		}
 		if(key == ' ')
 		{
+			trieDict.insertWord(str);
 			str.clear();
 			continue;
 		}
@@ -48,7 +49,6 @@ int main()
 		// should insert from stringstream instead
 
 
-		trieDict.insertWord(str);
 
 
 		//clear();
@@ -62,11 +62,7 @@ int main()
 
 	endwin();
 
-	//dictionary.printAllWords();
 	cout << "Stream is: " << string_buffer.str() << endl;
-
-	for(auto& entry : (trieDict.mLetterToPos))
-		std::cout << entry.first << " " << entry.second << std::endl;
 
 	return 0;
 }

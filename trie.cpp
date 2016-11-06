@@ -29,25 +29,35 @@ namespace Trie
 
 	void Trie::insertWord(std::string& word)
 	{
-		Node* nodeIt = mRoot.get();
+		// That's right, a pointer to unique_ptr<Node>
+		// For iteration and stuff
+		std::unique_ptr<Node> *nodeIt = &mRoot;
+		size_t wordIt = 0;
 
-
-		for(auto ch : word)
+		// Walk through nodes that are already present
+		while(wordIt < word.size())
 		{
-			// if letter not present
-			if( nodeIt->mChildren[mLetterToPos.at(ch)].get() == nullptr )
+			char currChar = word[wordIt];
+			if( (*nodeIt)->mChildren.at(mLetterToPos[currChar]).get() != nullptr )
 			{
-				// insert it in correct position in nodeIt->mChildren
-				//nodeIt->mChildren[mLetterToPos.at(ch)].reset(new Node(ch));
-				//auto insertingNode = nodeIt->mChildren[mLetterToPos.at(ch)].get();
+				nodeIt = &( (*nodeIt)->mChildren.at(mLetterToPos[currChar]) );
+				++wordIt;
 
 			}
-
-
-
+			else
+				break;
 		}
 
+		// Now we're at a letter/suffix which is not present
+		// so we insert it (i.e. allocate and link it)
+		while(wordIt < word.size())
+		{
+			char currChar = word[wordIt];
 
+			(*nodeIt)->mChildren.at(mLetterToPos[currChar]).reset(new Node(currChar));
+			nodeIt = &((*nodeIt)->mChildren.at(mLetterToPos[currChar]));
+			++wordIt;
+		}
 
 	}
 
@@ -56,36 +66,5 @@ namespace Trie
 	char Node::getData() const
 	{	return mData;	}
 
-
-	// Likely to be correct...
-/*	void Node::printAllWords() const
-	{
-		const Node* nodeIt = this;
-		auto depth_first_traversal = [this]()
-		{
-			std::stack<const Node*> stack;
-			stack.push(this);
-
-			while(!stack.empty())
-			{
-				auto top = stack.top();
-				stack.pop();
-
-				if(top != nullptr)
-				{
-					std::cout << top->getData();
-
-					for(auto& child : top->mChildren)
-					stack.push(child.second.get());
-				}
-
-				else
-					std::cout << std::endl;
-			}
-		};
-
-		depth_first_traversal();
-
-	} */
 
 }
