@@ -38,9 +38,11 @@ namespace Trie
 		while(wordIt < word.size())
 		{
 			char currChar = word[wordIt];
+			// Unwieldy-looking mLetterToPos maps characters to array indices
+			// in O(lg 26) time, as it's implemented as a red-black tree.
 			if( (*nodeIt)->mChildren.at(mLetterToPos[currChar]).get() != nullptr )
 			{
-				nodeIt = &( (*nodeIt)->mChildren.at(mLetterToPos[currChar]) );
+				nodeIt = &( (*nodeIt)->mChildren.at(mLetterToPos.at(currChar)) );
 				++wordIt;
 
 			}
@@ -54,10 +56,18 @@ namespace Trie
 		{
 			char currChar = word[wordIt];
 
-			(*nodeIt)->mChildren.at(mLetterToPos[currChar]).reset(new Node(currChar));
+			(*nodeIt)->mChildren.at(mLetterToPos.at(currChar)).reset(new Node(currChar));
 			nodeIt = &((*nodeIt)->mChildren.at(mLetterToPos[currChar]));
 			++wordIt;
+
+			// Not part of the algorithm but let's update
+			// our node count while we're at it
+			// This may or may not be correct
+			++mNodeCount;
 		}
+
+
+		nodeIt->get()->mEndOfWord = true;
 
 	}
 
