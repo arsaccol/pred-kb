@@ -24,11 +24,9 @@ namespace Trie
 		private:
 			char mData;
 			bool mEndOfWord;
-			// TODO: Change constructor to start vector with 26 nullptr's
 			std::vector< std::unique_ptr<Node> > mChildren{26};
 
 
-			//std::list<Node*> children;
 	};
 
 
