@@ -12,8 +12,9 @@ int main()
 	using std::cout; using std::endl;
 	std::string str;
 	std::stringstream string_buffer;
-	Trie::Trie trieDict;
 
+	Trie::Trie trieDict { "bear", "bell", "bid", "bull", "buy", "sell", "stock", "stop"};
+/*
 	__fpurge(stdin);
 	initscr();
 	raw();
@@ -61,7 +62,7 @@ int main()
 	}
 
 	endwin();
-
+*/
 	//cout << "Stream is: " << string_buffer.str() << endl;
 	trieDict.printLexicographicalOrder();
 

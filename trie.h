@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <initializer_list>
 
 // Premature optimization is the root of all evil
 // (Donald Knuth)
@@ -34,6 +35,7 @@ namespace Trie
 	{
 		public:
 			Trie();
+			Trie(std::initializer_list<std::string>);
 
 			void insert(std::string& word);
 			Node& find(std::string& word);

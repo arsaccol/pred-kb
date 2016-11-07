@@ -34,6 +34,20 @@ Trie::Trie
 		*/
 	}
 
+
+/*
+================
+Trie::Trie(std::initializer_list<std::string>)
+================
+*/
+Trie::Trie(std::initializer_list<std::string> init_list)
+	:	Trie()
+{
+
+	for(auto str : init_list)
+		insert(str);
+}
+
 /*
 ================
 Node::Node
@@ -49,7 +63,7 @@ Node::Node
 
 /*
 ================
-Trie::insertWord
+Trie::insert
 ================
 */
 	void Trie::insert(std::string& word)
@@ -70,6 +84,7 @@ Trie::insertWord
 			char currChar = word[wordIt];
 			// Unwieldy-looking mLetterToPos maps characters to array indices
 			// in O(lg 26) time, as it's implemented as a red-black tree.
+
 			if( (*nodeIt)->mChildren.at(currChar - 'a').get() != nullptr )
 			{
 				nodeIt = &( (*nodeIt)->mChildren.at(currChar - 'a') );
