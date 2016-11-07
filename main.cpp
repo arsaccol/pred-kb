@@ -13,7 +13,9 @@ int main()
 	std::string str;
 	std::stringstream string_buffer;
 
-	Trie::Trie trieDict { "bear", "bell", "bid", "bull", "buy", "sell", "stock", "stop"};
+	Trie::Trie trieDict { "bear", "bell", "bid", "bull",
+		"buy", "sell", "stock", "stop", "candy", "can",
+		"could", "count"};
 /*
 	__fpurge(stdin);
 	initscr();
