@@ -94,6 +94,7 @@ Trie::insert
 
 
 		nodeIt->get()->mEndOfWord = true;
+		++mWordCount;
 
 	}
 
