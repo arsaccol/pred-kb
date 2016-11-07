@@ -98,13 +98,22 @@ Trie::insert
 
 	}
 
-
 /*
 ================
 Trie::getLexicographicalSort
 ================
 */
 std::vector<std::string> Trie::getLexicographicalSort()
+{
+	return getLexicographicalSort(&mRoot);
+}
+
+/*
+================
+Trie::getLexicographicalSort(std::unique_ptr<Node> *)
+================
+*/
+std::vector<std::string> Trie::getLexicographicalSort(std::unique_ptr<Node>* startNode)
 {
 	std::vector<std::string> sortedVec;
 	std::string currentStr;
@@ -129,7 +138,7 @@ std::vector<std::string> Trie::getLexicographicalSort()
 		currentStr.pop_back();
 	};
 
-	recursiveHelper(mRoot.get());
+	recursiveHelper((*startNode).get());
 
 	return sortedVec;
 }
@@ -164,6 +173,16 @@ void Trie::printLexicographicalOrder()
 
 	recursiveHelper(mRoot.get());
 
+}
+
+/*
+================
+Trie::getWordCount
+================
+*/
+size_t Trie::getWordCount() const
+{
+	return mWordCount;
 }
 
 /*

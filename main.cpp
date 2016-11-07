@@ -67,10 +67,12 @@ int main()
 */
 	//cout << "Stream is: " << string_buffer.str() << endl;
 
+
 	auto sortedVec = trieDict.getLexicographicalSort();
 	//trieDict.printLexicographicalOrder();
 	for(auto& str : sortedVec)
 		std::cout << str << std::endl;
+
 
 	return 0;
 }
