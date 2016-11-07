@@ -1,7 +1,7 @@
 #ifndef TRIE_H
 #define TRIE_H
 #include <cstdint>
-#include <map>
+//#include <map>
 #include <vector>
 #include <string>
 #include <memory>
@@ -12,24 +12,7 @@
 
 namespace Trie
 {
-
-	class Node
-	{
-		public:
-			friend class Trie;
-			Node(char data);
-
-			char getData() const;
-			//void printAllWords() const;
-
-		private:
-			char mData;
-			bool mEndOfWord;
-			std::vector< std::unique_ptr<Node> > mChildren{26};
-
-
-	};
-
+	class Node;
 
 	class Trie
 	{
@@ -39,7 +22,6 @@ namespace Trie
 
 			void insert(std::string& word);
 			Node& find(std::string& word);
-			//std::map<char, size_t> mLetterToPos;
 
 		public:
 			std::vector<std::string> getLexicographicalSort();
@@ -51,9 +33,22 @@ namespace Trie
 			size_t mNodeCount;
 			std::unique_ptr<Node> mRoot;
 	};
-	
+
+	class Node
+	{
+		public:
+			friend class Trie;
+			Node(char data);
+
+			char getData() const;
+
+		private:
+			char mData;
+			bool mEndOfWord;
+			std::vector< std::unique_ptr<Node> > mChildren{26};
 
 
+	};
 }
 
 #endif

@@ -15,23 +15,6 @@ Trie::Trie
 		,	mNodeCount(0)
 		,	mRoot(new Node(0))
 	{
-		/*
-			=======================================
-			// Commented out since we're indexing
-			// directly without a map.
-			// The map can perhaps be useful if we
-			// use a larger alphabet or something.
-			=======================================
-
-			// For 26 letters starting from 'a',
-			// insert the letter on the map
-			// with the current i as a key
-			char currentChar = 'a';
-			for(size_t i = 0; i < 26; ++i)
-			{
-				mLetterToPos[currentChar++] = i;
-			}
-		*/
 	}
 
 
@@ -82,8 +65,6 @@ Trie::insert
 		while(wordIt < word.size())
 		{
 			char currChar = word[wordIt];
-			// Unwieldy-looking mLetterToPos maps characters to array indices
-			// in O(lg 26) time, as it's implemented as a red-black tree.
 
 			if( (*nodeIt)->mChildren.at(currChar - 'a').get() != nullptr )
 			{
@@ -122,23 +103,35 @@ Trie::insert
 Trie::getLexicographicalSort
 ================
 */
-/* std::vector<std::string> Trie::getLexicographicalSort()
+std::vector<std::string> Trie::getLexicographicalSort()
 {
 	std::vector<std::string> sortedVec;
+	std::string currentStr;
 
 	std::function<void(Node*)> recursiveHelper;
 
-	recursiveHelper = [this](Node* nodeIt)
+	recursiveHelper = [this, &recursiveHelper, &currentStr, &sortedVec]
+						(Node* nodeIt)
 	{
 		if(nodeIt == nullptr)
 			return;
 
-		std::cout << nodeIt->mData << std::endl;
-		//for(auto child : nodeIt->mChildren)
+		currentStr += nodeIt->mData;
 
+		if(nodeIt->mEndOfWord)
+		{
+			sortedVec.push_back(currentStr);
+		}
+
+		for(auto& child : nodeIt->mChildren)
+			recursiveHelper(child.get());
+		currentStr.pop_back();
 	};
 
-} */
+	recursiveHelper(mRoot.get());
+
+	return sortedVec;
+}
 
 
 /*
