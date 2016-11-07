@@ -15,14 +15,23 @@ Trie::Trie
 		,	mNodeCount(0)
 		,	mRoot(new Node(0))
 	{
-		// For 26 letters starting from 'a',
-		// insert the letter on the map
-		// with the current i as a key
-		char currentChar = 'a';
-		for(size_t i = 0; i < 26; ++i)
-		{
-			mLetterToPos[currentChar++] = i;
-		}
+		/*
+			=======================================
+			// Commented out since we're indexing
+			// directly without a map.
+			// The map can perhaps be useful if we
+			// use a larger alphabet or something.
+			=======================================
+
+			// For 26 letters starting from 'a',
+			// insert the letter on the map
+			// with the current i as a key
+			char currentChar = 'a';
+			for(size_t i = 0; i < 26; ++i)
+			{
+				mLetterToPos[currentChar++] = i;
+			}
+		*/
 	}
 
 /*
@@ -43,8 +52,13 @@ Node::Node
 Trie::insertWord
 ================
 */
-	void Trie::insertWord(std::string& word)
+	void Trie::insert(std::string& word)
 	{
+		// Test for invalid characters.
+		// This should go elsewhere later on...
+		for(auto ch : word)
+			if(ch < 'a' || ch > 'z')
+				return;
 		// That's right, a pointer to unique_ptr<Node>
 		// For iteration and stuff
 		std::unique_ptr<Node> *nodeIt = &mRoot;
@@ -56,9 +70,9 @@ Trie::insertWord
 			char currChar = word[wordIt];
 			// Unwieldy-looking mLetterToPos maps characters to array indices
 			// in O(lg 26) time, as it's implemented as a red-black tree.
-			if( (*nodeIt)->mChildren.at(mLetterToPos[currChar]).get() != nullptr )
+			if( (*nodeIt)->mChildren.at(currChar - 'a').get() != nullptr )
 			{
-				nodeIt = &( (*nodeIt)->mChildren.at(mLetterToPos.at(currChar)) );
+				nodeIt = &( (*nodeIt)->mChildren.at(currChar - 'a') );
 				++wordIt;
 
 			}
@@ -72,8 +86,8 @@ Trie::insertWord
 		{
 			char currChar = word[wordIt];
 
-			(*nodeIt)->mChildren.at(mLetterToPos.at(currChar)).reset(new Node(currChar));
-			nodeIt = &((*nodeIt)->mChildren.at(mLetterToPos[currChar]));
+			(*nodeIt)->mChildren.at(currChar - 'a').reset(new Node(currChar));
+			nodeIt = &((*nodeIt)->mChildren.at(currChar - 'a'));
 			++wordIt;
 
 			// Not part of the algorithm but let's update
@@ -88,6 +102,60 @@ Trie::insertWord
 	}
 
 
+/*
+================
+Trie::getLexicographicalSort
+================
+*/
+/* std::vector<std::string> Trie::getLexicographicalSort()
+{
+	std::vector<std::string> sortedVec;
+
+	std::function<void(Node*)> recursiveHelper;
+
+	recursiveHelper = [this](Node* nodeIt)
+	{
+		if(nodeIt == nullptr)
+			return;
+
+		std::cout << nodeIt->mData << std::endl;
+		//for(auto child : nodeIt->mChildren)
+
+	};
+
+} */
+
+
+/*
+================
+Trie::printLexicographicalOrder()
+================
+*/
+void Trie::printLexicographicalOrder()
+{
+	std::string prefix;
+
+	std::function<void(Node*)> recursiveHelper;
+	recursiveHelper = [this, &recursiveHelper, &prefix](Node* nodeIt)
+	{
+		if(nodeIt == nullptr)
+			return;
+
+		prefix += nodeIt->mData;
+		if(nodeIt->mEndOfWord)
+		{
+			std::cout << prefix;
+			std::cout << std::endl;
+		}
+
+		for(auto& child : (nodeIt->mChildren))
+			recursiveHelper(child.get());
+		prefix.pop_back();
+	};
+
+	recursiveHelper(mRoot.get());
+
+}
 
 /*
 ================

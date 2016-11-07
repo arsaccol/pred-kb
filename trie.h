@@ -35,9 +35,13 @@ namespace Trie
 		public:
 			Trie();
 
-			void insertWord(std::string& word);
-			Node& findWord(std::string& word);
-			std::map<char, size_t> mLetterToPos;
+			void insert(std::string& word);
+			Node& find(std::string& word);
+			//std::map<char, size_t> mLetterToPos;
+
+		public:
+			std::vector<std::string> getLexicographicalSort();
+			void printLexicographicalOrder();
 
 
 		private:

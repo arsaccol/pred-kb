@@ -40,7 +40,7 @@ int main()
 		}
 		if(key == ' ')
 		{
-			trieDict.insertWord(str);
+			trieDict.insert(str);
 			str.clear();
 			continue;
 		}
@@ -62,7 +62,8 @@ int main()
 
 	endwin();
 
-	cout << "Stream is: " << string_buffer.str() << endl;
+	//cout << "Stream is: " << string_buffer.str() << endl;
+	trieDict.printLexicographicalOrder();
 
 	return 0;
 }
