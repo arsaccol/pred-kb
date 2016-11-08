@@ -105,15 +105,15 @@ Trie::getLexicographicalSort
 */
 std::vector<std::string> Trie::getLexicographicalSort()
 {
-	return getLexicographicalSort(&mRoot);
+	return mRoot->getLexicographicalSort();
 }
 
 /*
 ================
-Trie::getLexicographicalSort(std::unique_ptr<Node> *)
+Node::getLexicographicalSort()
 ================
 */
-std::vector<std::string> Trie::getLexicographicalSort(std::unique_ptr<Node>* startNode)
+std::vector<std::string> Node::getLexicographicalSort()
 {
 	std::vector<std::string> sortedVec;
 	std::string currentStr;
@@ -138,7 +138,7 @@ std::vector<std::string> Trie::getLexicographicalSort(std::unique_ptr<Node>* sta
 		currentStr.pop_back();
 	};
 
-	recursiveHelper((*startNode).get());
+	recursiveHelper(this);
 
 	return sortedVec;
 }

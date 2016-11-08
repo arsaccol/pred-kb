@@ -25,7 +25,6 @@ namespace Trie
 
 		public:
 			std::vector<std::string> getLexicographicalSort();
-			std::vector<std::string> getLexicographicalSort(std::unique_ptr<Node>*);
 			size_t getWordCount() const;
 			void printLexicographicalOrder();
 
@@ -43,6 +42,7 @@ namespace Trie
 			Node(char data);
 
 			char getData() const;
+			std::vector<std::string> getLexicographicalSort();
 
 		private:
 			char mData;
