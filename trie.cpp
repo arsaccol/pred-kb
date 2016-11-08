@@ -1,7 +1,6 @@
 #include "trie.h"
 #include <iostream>
 #include <functional>
-#include <stack>
 
 namespace Trie
 {
