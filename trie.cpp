@@ -110,7 +110,7 @@ std::vector<std::string> Trie::getLexicographicalSort()
 
 /*
 ================
-Node::getLexicographicalSort()
+Node::getLexicographicalSort
 ================
 */
 std::vector<std::string> Node::getLexicographicalSort()
@@ -120,7 +120,7 @@ std::vector<std::string> Node::getLexicographicalSort()
 
 	std::function<void(Node*)> recursiveHelper;
 
-	recursiveHelper = [this, &recursiveHelper, &currentStr, &sortedVec]
+	recursiveHelper = [&recursiveHelper, &currentStr, &sortedVec]
 						(Node* nodeIt)
 	{
 		if(nodeIt == nullptr)
